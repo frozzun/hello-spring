@@ -32,16 +32,14 @@ import java.util.Optional;
 public class MemberController {
 
   private final MemberService memberService;
-  private final MemberRepository memberRepository;
 
   /**
    * 생성자
    * controller, service 연결
    */
   @Autowired
-  public MemberController(MemberService memberService, MemberRepository memberRepository) {
+  public MemberController(MemberService memberService) {
     this.memberService = memberService;
-    this.memberRepository = memberRepository;
   }
 
   /**

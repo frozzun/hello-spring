@@ -1,7 +1,6 @@
 package hello.hello_spring.domain;
 
 import jakarta.persistence.*;
-import org.springframework.lang.NonNull;
 
 @Entity
 @Table
