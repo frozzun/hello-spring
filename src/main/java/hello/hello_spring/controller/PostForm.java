@@ -1,6 +1,6 @@
 package hello.hello_spring.controller;
 
-public class MemberForm {
+public class PostForm {
 
   private String name;
 

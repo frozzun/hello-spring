@@ -1,49 +1,52 @@
 package hello.hello_spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "member")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
-  private String name;
+  @Column(length = 100, unique = true, nullable = false)
+  private String email;
 
   @Column(nullable = false)
-//  @Column(unique = true, length=200) //유일하고 최대 길이가 200.
-  private String post;
+  private String password;
 
-  public Member() {}
-  public Member(String name, String post) {
-    this.name = name;
-    this.post = post;
+
+  @Builder
+  public Member(String email, String password) {
+    this.email = email;
+    this.password = password;
   }
 
-  public Long getId() {
-    return id;
-  }
+  @CreationTimestamp
+  private LocalDateTime createdAt;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  @LastModifiedDate
+  private LocalDateTime updatedAt;
 
-  public String getPost() {
-    return post;
-  }
+  private boolean isDeleted;
 
-  public void setPost(String name) {
-    this.post = name;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference // 부모 방향 참조
+  private List<Post> posts;
 }

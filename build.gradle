@@ -22,6 +22,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
+
+	//data validator
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
@@ -29,9 +34,19 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'mysql:mysql-connector-java:8.0.33'
 
+	testImplementation 'mysql:mysql-connector-java:8.0.33'  // 테스트 시에도 JDBC 드라이버 사용
+
 	//Docker
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	testAndDevelopmentOnly("org.springframework.boot:spring-boot-docker-compose")
+
+
+	//lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	//DevTools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {
